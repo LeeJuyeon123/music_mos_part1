@@ -133,22 +133,47 @@
         h1 {
             font-size: clamp(2.5rem, 4vw, 4.4rem);
             line-height: 1.03;
-            max-width: 11ch;
+            max-width: 14ch;
         }
 
         .intro-lead {
-            max-width: 760px;
-            margin: 22px 0 0;
-            font-size: clamp(1.05rem, 1.5vw, 1.28rem);
-            line-height: 1.8;
+            max-width: 820px;
+            margin: 26px 0 0;
+            font-size: clamp(1.08rem, 1.7vw, 1.34rem);
+            line-height: 1.85;
             color: var(--text-secondary);
+        }
+
+        .intro-section {
+            margin-top: 34px;
+            padding: 28px 30px;
+            border-radius: 26px;
+            border: 1px solid var(--surface-border);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .intro-section h2 {
+            font-size: clamp(1.3rem, 2vw, 1.8rem);
+            margin-bottom: 14px;
+        }
+
+        .score-guide-list {
+            margin: 0;
+            padding-left: 1.4rem;
+            color: var(--text-secondary);
+            font-size: 1.04rem;
+            line-height: 1.9;
+        }
+
+        .score-guide-list strong {
+            color: var(--text-primary);
         }
 
         .intro-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
-            margin-top: 34px;
+            margin-top: 22px;
         }
 
         .criterion-card,
@@ -452,6 +477,8 @@
 
         .prompt-copy {
             margin: 0;
+            font-size: 1.12rem;
+            line-height: 1.95;
             white-space: pre-wrap;
         }
 
@@ -516,8 +543,8 @@
             border: 1px solid rgba(255, 255, 255, 0.08);
             background: rgba(255, 255, 255, 0.04);
             color: rgba(245, 242, 235, 0.82);
-            font-size: 0.92rem;
-            line-height: 1.8;
+            font-size: 1.03rem;
+            line-height: 1.95;
             white-space: pre-wrap;
             font-family: "IBM Plex Mono", ui-monospace, monospace;
         }
@@ -647,23 +674,26 @@
             padding: 0;
         }
 
+        .criterion-heading {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 8px 10px;
+            line-height: 1.65;
+        }
+
         .criterion-code {
-            display: block;
             color: var(--accent);
             font-size: 1rem;
         }
 
         .criterion-title {
-            display: block;
-            margin-top: 4px;
-            font-size: 0.98rem;
+            font-size: 1rem;
             font-weight: 600;
         }
 
         .criterion-desc {
-            display: block;
-            margin-top: 8px;
-            font-size: 0.88rem;
+            font-size: 0.92rem;
         }
 
         .scale-row {
@@ -851,9 +881,20 @@
                 <h1>AI가 생성한 음악의 주관적 품질을 평가하는 페이지입니다.</h1>
                 <p class="intro-lead">
                     총 10문항이 준비되어 있으며, 각 문항마다 4개의 음악 샘플을 들은 뒤
-                    아래 네 가지 항목을 1점부터 5점까지 평가해 주세요.
-                    모든 샘플은 끝까지 또는 충분히 들은 뒤 독립적으로 판단해 주시면 됩니다.
+                    OVL., REL., VQ., HAM. 네 가지 항목을 1점부터 5점까지 평가해 주세요.
+                    각 샘플은 prompt와 lyrics를 함께 참고하면서, 끝까지 또는 충분히 들은 뒤 독립적으로 판단해 주시면 됩니다.
                 </p>
+
+                <section class="intro-section">
+                    <h2>평가 기준 (1~5점)</h2>
+                    <ul class="score-guide-list">
+                        <li><strong>1점</strong>: 매우 낮음(Completely unnatural).</li>
+                        <li><strong>2점</strong>: 낮음(Mostly unnatural).</li>
+                        <li><strong>3점</strong>: 보통(Equally natural and unnatural).</li>
+                        <li><strong>4점</strong>: 높음(Mostly natural).</li>
+                        <li><strong>5점</strong>: 매우 높음(Completely natural).</li>
+                    </ul>
+                </section>
 
                 <div class="intro-grid">
                     
@@ -895,11 +936,8 @@
                     <div class="meta-card">
                         <div class="meta-label">평가 안내</div>
                         <p>
-                            정답은 없으며, 본인의 청각적 인상에 따라 점수를 매겨 주시면 됩니다.
-                        </p>
-                        <p>
-                            <strong>1점</strong>은 매우 나쁨, <strong>5점</strong>은 매우 좋음을 의미합니다.
-                            프롬프트는 바로 보이고, 가사는 토글을 눌러 펼쳐서 확인할 수 있습니다.
+                            각 문항에서는 prompt와 lyrics를 참고한 상태에서 4개의 익명 샘플을 평가합니다.
+                            가사는 기본으로 펼쳐져 있으며, 필요할 때 접었다가 다시 열 수 있습니다.
                         </p>
                     </div>
                     <div class="meta-card">
@@ -1061,9 +1099,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1102,9 +1142,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1143,9 +1185,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1184,9 +1228,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1250,9 +1296,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1291,9 +1339,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1332,9 +1382,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1373,9 +1425,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1439,9 +1493,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1480,9 +1536,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1521,9 +1579,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1562,9 +1622,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1628,9 +1690,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1669,9 +1733,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1710,9 +1776,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1751,9 +1819,11 @@ Every turn feels like home</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q01_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1898,9 +1968,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1939,9 +2011,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -1980,9 +2054,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2021,9 +2097,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2087,9 +2165,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2128,9 +2208,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2169,9 +2251,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2210,9 +2294,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2276,9 +2362,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2317,9 +2405,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2358,9 +2448,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2399,9 +2491,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2465,9 +2559,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2506,9 +2602,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2547,9 +2645,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2588,9 +2688,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q02_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2735,9 +2837,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2776,9 +2880,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2817,9 +2923,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2858,9 +2966,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2924,9 +3034,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -2965,9 +3077,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3006,9 +3120,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3047,9 +3163,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3113,9 +3231,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3154,9 +3274,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3195,9 +3317,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3236,9 +3360,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3302,9 +3428,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3343,9 +3471,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3384,9 +3514,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3425,9 +3557,11 @@ Sleep pulls me strong</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q03_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3572,9 +3706,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3613,9 +3749,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3654,9 +3792,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3695,9 +3835,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3761,9 +3903,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3802,9 +3946,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3843,9 +3989,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3884,9 +4032,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3950,9 +4100,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -3991,9 +4143,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4032,9 +4186,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4073,9 +4229,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4139,9 +4297,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4180,9 +4340,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4221,9 +4383,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4262,9 +4426,11 @@ Snack attack that'll end too soon</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q04_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4409,9 +4575,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4450,9 +4618,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4491,9 +4661,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4532,9 +4704,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4598,9 +4772,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4639,9 +4815,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4680,9 +4858,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4721,9 +4901,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4787,9 +4969,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4828,9 +5012,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4869,9 +5055,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4910,9 +5098,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -4976,9 +5166,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5017,9 +5209,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5058,9 +5252,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5099,9 +5295,11 @@ Gotta have dessert under my favorite tune</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q05_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5246,9 +5444,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5287,9 +5487,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5328,9 +5530,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5369,9 +5573,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5435,9 +5641,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5476,9 +5684,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5517,9 +5727,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5558,9 +5770,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5624,9 +5838,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5665,9 +5881,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5706,9 +5924,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5747,9 +5967,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5813,9 +6035,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5854,9 +6078,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5895,9 +6121,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -5936,9 +6164,11 @@ Dad I'm sorry no more tears to hide</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q06_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6083,9 +6313,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6124,9 +6356,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6165,9 +6399,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6206,9 +6442,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6272,9 +6510,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6313,9 +6553,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6354,9 +6596,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6395,9 +6639,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6461,9 +6707,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6502,9 +6750,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6543,9 +6793,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6584,9 +6836,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6650,9 +6904,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6691,9 +6947,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6732,9 +6990,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6773,9 +7033,11 @@ Moonwalking in the rain yeah I'm feelin' no pain</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q07_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6920,9 +7182,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -6961,9 +7225,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7002,9 +7268,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7043,9 +7311,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7109,9 +7379,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7150,9 +7422,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7191,9 +7465,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7232,9 +7508,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7298,9 +7576,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7339,9 +7619,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7380,9 +7662,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7421,9 +7705,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7487,9 +7773,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7528,9 +7816,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7569,9 +7859,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7610,9 +7902,11 @@ In this world of code we'll play our endless games</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q08_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7757,9 +8051,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7798,9 +8094,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7839,9 +8137,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7880,9 +8180,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7946,9 +8248,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -7987,9 +8291,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8028,9 +8334,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8069,9 +8377,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8135,9 +8445,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8176,9 +8488,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8217,9 +8531,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8258,9 +8574,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8324,9 +8642,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8365,9 +8685,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8406,9 +8728,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8447,9 +8771,11 @@ Stepping back when the scent imposes</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q09_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8594,9 +8920,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_a_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8635,9 +8963,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_a_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8676,9 +9006,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_a_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8717,9 +9049,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_a_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8783,9 +9117,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_b_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8824,9 +9160,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_b_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8865,9 +9203,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_b_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8906,9 +9246,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_b_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -8972,9 +9314,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_c_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9013,9 +9357,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_c_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9054,9 +9400,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_c_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9095,9 +9443,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_c_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9161,9 +9511,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_d_ovl">
                                             <legend>
-                                                <span class="criterion-code">OVL.</span>
-                                                <span class="criterion-title">전반적 품질</span>
-                                                <span class="criterion-desc">음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">OVL.</span>
+                                                    <span class="criterion-title">전반적 품질</span>
+                                                    <span class="criterion-desc">- 음악성, 자연스러움, 전체 완성도를 종합적으로 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9202,9 +9554,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_d_rel">
                                             <legend>
-                                                <span class="criterion-code">REL.</span>
-                                                <span class="criterion-title">텍스트 반영도</span>
-                                                <span class="criterion-desc">프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">REL.</span>
+                                                    <span class="criterion-title">텍스트 반영도</span>
+                                                    <span class="criterion-desc">- 프롬프트와 가사의 분위기, 장르, 표현이 얼마나 잘 반영되었는지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9243,9 +9597,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_d_vq">
                                             <legend>
-                                                <span class="criterion-code">VQ.</span>
-                                                <span class="criterion-title">보컬 품질</span>
-                                                <span class="criterion-desc">보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">VQ.</span>
+                                                    <span class="criterion-title">보컬 품질</span>
+                                                    <span class="criterion-desc">- 보컬의 명료도와 가사 전달력이 얼마나 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
@@ -9284,9 +9640,11 @@ In this world we always win</pre>
                                         
                                         <fieldset class="criterion-block" data-criterion-block data-group-name="q10_sample_d_ham">
                                             <legend>
-                                                <span class="criterion-code">HAM.</span>
-                                                <span class="criterion-title">보컬-반주 조화</span>
-                                                <span class="criterion-desc">보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                <div class="criterion-heading">
+                                                    <span class="criterion-code">HAM.</span>
+                                                    <span class="criterion-title">보컬-반주 조화</span>
+                                                    <span class="criterion-desc">- 보컬과 반주가 자연스럽게 어우러지고 밸런스가 좋은지 평가합니다.</span>
+                                                </div>
                                             </legend>
 
                                             <div class="scale-row">
